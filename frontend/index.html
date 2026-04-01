@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>墨香论坛 — 古典文学交流社区</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════
+       顶栏 (Top Bar)
+  ═══════════════════════════════════════════════ -->
+  <header class="topbar">
+    <div class="topbar__inner container">
+
+      <!-- Logo -->
+      <a href="index.html" class="topbar__logo" aria-label="墨香论坛首页">
+        <span class="topbar__logo-icon" aria-hidden="true">墨</span>
+        <span class="topbar__logo-text">墨香论坛</span>
+      </a>
+
+      <!-- 搜索框 -->
+      <form class="topbar__search" id="searchForm" role="search">
+        <input
+          type="search"
+          id="searchInput"
+          class="topbar__search-input"
+          placeholder="搜索帖子标题…"
+          aria-label="搜索帖子"
+        />
+        <button type="submit" class="topbar__search-btn" aria-label="搜索">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+               width="16" height="16" aria-hidden="true">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+        </button>
+      </form>
+
+      <!-- 发帖按钮 -->
+      <button class="btn btn--primary" id="newPostBtn">
+        ✦ 发布新帖
+      </button>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════════
+       Hero 区域
+  ═══════════════════════════════════════════════ -->
+  <section class="hero" aria-labelledby="heroTitle">
+    <div class="hero__inner container">
+      <p class="hero__eyebrow">古典文学 · 诗词鉴赏 · 历史典故</p>
+      <h1 class="hero__title" id="heroTitle">
+        探索文墨之间<br />与同道共话诗书
+      </h1>
+      <p class="hero__desc">
+        墨香论坛是一处专为古典文学爱好者而设的交流天地。<br />
+        在此品读经典，分享感悟，结交志同道合的文人墨客。
+      </p>
+      <div class="hero__actions">
+        <button class="btn btn--primary btn--lg" id="enterForumBtn">进入论坛</button>
+        <button class="btn btn--outline btn--lg" id="registerBtn">立即注册</button>
+      </div>
+    </div>
+
+    <!-- 装饰性竖排诗句 -->
+    <div class="hero__deco" aria-hidden="true">
+      <span>书卷多情似故人</span>
+      <span>晨昏忧乐每相亲</span>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       数据统计卡片
+  ═══════════════════════════════════════════════ -->
+  <section class="stats" aria-label="论坛统计">
+    <div class="stats__inner container">
+      <article class="stat-card">
+        <div class="stat-card__icon" aria-hidden="true">👤</div>
+        <div class="stat-card__body">
+          <p class="stat-card__label">注册会员</p>
+          <p class="stat-card__value" id="statMembers">—</p>
+        </div>
+      </article>
+
+      <article class="stat-card">
+        <div class="stat-card__icon" aria-hidden="true">📜</div>
+        <div class="stat-card__body">
+          <p class="stat-card__label">帖子总数</p>
+          <p class="stat-card__value" id="statPosts">—</p>
+        </div>
+      </article>
+
+      <article class="stat-card">
+        <div class="stat-card__icon" aria-hidden="true">💬</div>
+        <div class="stat-card__body">
+          <p class="stat-card__label">评论总数</p>
+          <p class="stat-card__value" id="statComments">—</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       最新帖子列表
+  ═══════════════════════════════════════════════ -->
+  <section class="posts-section" aria-labelledby="postsHeading">
+    <div class="container">
+      <h2 class="section-title" id="postsHeading">最新帖子</h2>
+      <div class="posts-list" id="postsList" role="list">
+        <!-- 由 JS 动态填充 -->
+        <p class="posts-list__empty" id="postsEmpty">加载中…</p>
+      </div>
+
+      <!-- 分页控件 -->
+      <div class="pagination" id="pagination" aria-label="分页导航"></div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       发帖 Modal
+  ═══════════════════════════════════════════════ -->
+  <dialog class="modal" id="postModal" aria-labelledby="modalTitle">
+    <div class="modal__content">
+      <header class="modal__header">
+        <h2 class="modal__title" id="modalTitle">发布新帖</h2>
+        <button class="modal__close" id="modalClose" aria-label="关闭">✕</button>
+      </header>
+
+      <form id="postForm" novalidate>
+        <div class="form-group">
+          <label for="postTitle" class="form-label">标题 <span aria-hidden="true">*</span></label>
+          <input type="text" id="postTitle" class="form-input" placeholder="请输入帖子标题" maxlength="200" required />
+        </div>
+
+        <div class="form-group">
+          <label for="postCategory" class="form-label">分类</label>
+          <select id="postCategory" class="form-input form-select">
+            <option value="">— 请选择分类 —</option>
+            <option value="诗词鉴赏">诗词鉴赏</option>
+            <option value="小说推荐">小说推荐</option>
+            <option value="历史典故">历史典故</option>
+            <option value="书法画作">书法画作</option>
+            <option value="综合讨论">综合讨论</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="postContent" class="form-label">正文 <span aria-hidden="true">*</span></label>
+          <textarea id="postContent" class="form-input form-textarea" placeholder="畅所欲言…" rows="8" required></textarea>
+        </div>
+
+        <p class="form-hint">（演示模式：作者 ID 固定为 1，请先通过 API 创建用户）</p>
+
+        <div class="modal__footer">
+          <button type="button" class="btn btn--outline" id="modalCancelBtn">取消</button>
+          <button type="submit" class="btn btn--primary">发布</button>
+        </div>
+      </form>
+    </div>
+  </dialog>
+
+  <!-- 遮罩层 -->
+  <div class="modal-backdrop" id="modalBackdrop"></div>
+
+  <!-- ═══════════════════════════════════════════════
+       页脚
+  ═══════════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="container">
+      <p>© 2024 墨香论坛 · 探索古典文学与历史的世界</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
