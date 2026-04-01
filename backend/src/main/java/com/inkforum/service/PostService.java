@@ -119,7 +119,7 @@ public class PostService {
                 .orElseThrow(() -> new EntityNotFoundException("帖子不存在，ID=" + id));
     }
 
-    PostResponse toResponse(Post post) {
+    private PostResponse toResponse(Post post) {
         return PostResponse.builder()
                 .id(post.getId())
                 .title(post.getTitle())

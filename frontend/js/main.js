@@ -283,7 +283,11 @@ postForm.addEventListener('submit', async (e) => {
     title,
     content,
     category: category || null,
-    authorId: 1,   // Demo: use first user; replace with real auth user ID
+    // FIXME: Replace hardcoded authorId with the authenticated user's ID once
+    // user authentication (e.g. Spring Security + JWT) is implemented.
+    // Using authorId=1 here is for demo/development purposes only and MUST
+    // NOT be deployed to production without a real auth layer.
+    authorId: 1,
   };
 
   try {
